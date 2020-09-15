@@ -32,7 +32,6 @@ class point2D:
             x, y = abs(self.x - point.x), abs(self.y - point.y)
             tmp.append([x, y])
         tmp.sort()
-        print("tmp[0]", tmp[0], tmp[1])
         return [tmp[0][0] + tmp[1][0], tmp[0][1] + tmp[1][1]], tmp.index(max(tmp))
 
 
@@ -105,7 +104,6 @@ class class2D:
                 return distances.index(min(distances)), tmp_all_classes
             elif choice == 2:
                 distance, index = point.max_abs(centers)
-                print(distance)
                 print("Расстояние =", distance)
                 print("Принадлежит классу с индексом =", index)
                 return index, tmp_all_classes
@@ -143,14 +141,15 @@ class class2D:
                 summ_of_min = []
                 for i in range(len(label_counts)):
                     for j in range(len(tmp_all_classes[i])):
-                        distances.append([point.euclid_distance(point2D(tmp_all_classes[i][j][0], tmp_all_classes[i][j][1]))])
+                        distances.append([point.euclid_distance(point2D(tmp_all_classes[i][j][0],
+                                                                        tmp_all_classes[i][j][1]))])
                     distances.sort()
                     min_dist = distances[0][0] + distances[1][0]
                     index = i
                     summ_of_min.append([min_dist, index])
                     distances.clear()
                 summ_of_min.sort()
-                print("Минимальное расстояние = ", min(summ_of_min))
+                print("Минимальное расстояние = ", summ_of_min[0][0])
                 print("Принадлежит классу с индексом:", summ_of_min[0][1])
                 return summ_of_min[0][1], tmp_all_classes
             elif choice == 2:
@@ -159,7 +158,6 @@ class class2D:
                 for i in range(len(label_counts)):
                     distancess.append(point.max_abs2(needed_points[zero:zero + label_counts[i]])[0])
                     zero += label_counts[i]
-                print(distancess)
                 print("Расстояние =", max(distancess))
                 print("Принадлежит классу с индексом =", distancess.index(max(distancess)))
                 return distancess.index(max(distancess)), tmp_all_classes
@@ -229,11 +227,6 @@ class6 = np.load('class6.npy')
 
 all_classes = [class1, class3, class4, class6]
 points = make_points_from_classes(all_classes)
-
-points = points.add_point(point2D(1, 5))
-
-
-
-
-
-
+points.show()
+points = points.add_point(point2D(35, 7))
+points.show()
